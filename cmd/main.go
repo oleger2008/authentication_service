@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"time"
 
 	"github.com/brianvoe/gofakeit"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -21,38 +20,36 @@ type Server struct {
 	desc.UnimplementedUserV1Server
 }
 
-func (s *Server) Create(ctx context.Context, req *desc.CreateRequest) (*CreateResponse, error) {
-	log.Printf("Create response name = %s", req.name)
-	log.Printf("Create response email = %s", req.email)
-	log.Printf("Create response password = %s", req.password)
-	log.Printf("Create response password_confirm = %s", req.password_confirm)
-	log.Printf("Create response role = %d", req.role)
+func (s *Server) Create(ctx context.Context, req *desc.CreateRequest) (*desc.CreateResponse, error) {
+	log.Printf("Create response name = %s", req.Name)
+	log.Printf("Create response email = %s", req.Email)
+	log.Printf("Create response password = %s", req.Password)
+	log.Printf("Create response password_confirm = %s", req.PasswordConfirm)
+	log.Printf("Create response role = %d", req.Role)
 
 	return &desc.CreateResponse{
 		Id: 42,
 	}, nil
 }
 
-func (s *Server) Get(ctx context.Context, req *desc.GetRequest) (*GetResponse, error) {
-	log.Printf("Get response id = %d", req.id)
+func (s *Server) Get(ctx context.Context, req *desc.GetRequest) (*desc.GetResponse, error) {
+	log.Printf("Get response id = %d", req.Id)
 
 	return &desc.GetResponse{
-		Id:        req.id,
-		Name:      gofakeit.Name(),
-		Email:     gofakeit.Email(),
-		Role:      1,
-		CreatedAt: time.Now(),
-		UpdatedAt: time.Now(),
+		Id:    req.Id,
+		Name:  gofakeit.Name(),
+		Email: gofakeit.Email(),
+		Role:  1,
 	}, nil
 }
 
 func (s *Server) Update(ctx context.Context, req *desc.UpdateRequest) (*empty.Empty, error) {
-	log.Printf("Update response id = %d", req.id)
+	log.Printf("Update response id = %d", req.Id)
 	return &empty.Empty{}, nil
 }
 
 func (s *Server) Delete(ctx context.Context, req *desc.DeleteRequest) (*empty.Empty, error) {
-	log.Printf("Delete response id = %d", req.id)
+	log.Printf("Delete response id = %d", req.Id)
 	return &empty.Empty{}, nil
 }
 
